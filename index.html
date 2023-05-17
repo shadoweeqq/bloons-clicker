@@ -11,6 +11,9 @@
             height: 100vh;
             margin: 0;
             padding: 0 20%;
+            font-family: 'Courier New', monospace;
+            background-color: #181818;
+            color: white;
         }
 
         #clickButtonContainer {
@@ -26,6 +29,7 @@
 
         .upgradeButton {
             display: flex;
+            flex-direction: column;
             align-items: center;
             margin-top: 10px;
         }
@@ -34,7 +38,8 @@
             display: flex;
             flex-direction: column;
             font-size: 16px;
-            margin-left: 10px;
+            margin-top: 10px;
+            text-align: center;
         }
     </style>
 </head>
@@ -43,22 +48,25 @@
     <div id="clickButtonContainer">
         <h1>Bloons Clicker</h1>
         <p id="bananas">Bananas: 0</p>
+        <p id="bananasPerSecond">Bananas per Second: 0</p>
         <div id="clickButton">
-            <img src="img/banana_farm_000.png" alt="Click Me!" width="100" height="100">
+            <img src="img/banana_farm_000.png" alt="Click Me!" width="300" height="400">
         </div>
     </div>
     <div id="upgradesContainer">
         <div class="upgradeButton">
-            <img class="upgradeButtonImage" src="img/banana1.png" alt="Upgrade" width="100" height="100">
+            <img class="upgradeButtonImage" src="img/banana1.png" alt="Upgrade" width="200" height="200">
             <div class="upgradeButtonInfo">
+                <p class="upgradeButtonName">Increased Production</p>
                 <p class="upgradeButtonCost"></p>
                 <p class="upgradeButtonCount"></p>
                 <p class="upgradeButtonDescription"></p>
             </div>
         </div>
         <div class="upgradeButton">
-            <img class="upgradeButtonImage" src="img/banana_farmer.png" alt="Upgrade 2" width="100" height="100">
+            <img class="upgradeButtonImage" src="img/banana_farmer.png" alt="Upgrade 2" width="200" height="200">
             <div class="upgradeButtonInfo">
+                <p class="upgradeButtonName">Banana Farmer</p>
                 <p class="upgradeButtonCost"></p>
                 <p class="upgradeButtonCount"></p>
                 <p class="upgradeButtonDescription"></p>
@@ -78,6 +86,9 @@
         function updateBananas() {
             var bananasElement = document.getElementById('bananas');
             bananasElement.innerText = 'Bananas: ' + bananas;
+
+            var bananasPerSecondElement = document.getElementById('bananasPerSecond');
+            bananasPerSecondElement.innerText = 'Bananas per Second: ' + scorePerSecond;
         }
 
         // Function to update the upgrade button cost, count, and description
@@ -89,7 +100,13 @@
             upgradeButtonCount.innerText = 'Upgrades: ' + upgradeCount[index];
 
             var upgradeButtonDescription = document.querySelectorAll('.upgradeButtonDescription')[index];
-            upgradeButtonDescription.innerText = 'Upgrade Description: Increase ' + (index === 0 ? 'clicking' : 'score per second') + ' by 1';
+            upgradeButtonDescription.innerText = index === 0 ? 'Increase bananas per click by 1' : 'Increase bananas earned per second by 1';
+        }
+
+        // Function to update the upgrade button name
+        function updateUpgradeName(index, name) {
+            var upgradeButtonName = document.querySelectorAll('.upgradeButtonName')[index];
+            upgradeButtonName.innerText = name;
         }
 
         // Function to update the score per second
@@ -127,6 +144,8 @@
         updateBananas();
         updateUpgradeCost(0);
         updateUpgradeCost(1);
+        updateUpgradeName(0, 'Increased Production');
+        updateUpgradeName(1, 'Banana Farmer');
     </script>
 </body>
 
